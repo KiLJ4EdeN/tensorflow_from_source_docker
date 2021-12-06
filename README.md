@@ -1,5 +1,6 @@
 # tensorflow_from_source_docker
-Docker file to build tensorflow from source inside docker, helps with cpus that dont have avx, avx2, sse, or kvm and vmware shared cpus
+Instuctions to build tensorflow from source inside docker, helps with cpus that dont have avx, avx2, sse, or kvm and vmware shared cpus
+also great when u do have a gpod cpu and want the speedup from a compiled tensorflow
 
 ##### clone and create base bazel dockerimage:
 ```bash
@@ -90,6 +91,9 @@ WORKDIR /tensorflow
 RUN git checkout v2.2.0
 # -j16 is for limiting RAM, very helpful option on low end devices
 RUN bazel build -c opt //tensorflow/tools/pip_package:build_pip_package -j 16
+# here if u do have the instructions and just want the speedup from compiling from source use
+# the extra bazel flags for sse avx and fma
+# --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2
 ```
 
 #### output:
