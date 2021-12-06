@@ -77,7 +77,7 @@ git clone -b v2.2.0 --recursive https://github.com/tensorflow/tensorflow.git && 
 bazel build -c opt //tensorflow/tools/pip_package:build_pip_package -j 16
 ```
 
-#### or use the image we just created build another Dockerfile
+#### or use the image we just created and build another Dockerfile on top
 possibly here we can use AS later for simplicity
 ##### method 2
 ```Dockerfile
