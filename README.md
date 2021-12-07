@@ -98,9 +98,9 @@ RUN bazel build -c opt //tensorflow/tools/pip_package:build_pip_package -j 16
 # here if u do have the instructions and just want the speedup from compiling from source use
 # the extra bazel flags for sse avx and fma
 # --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2
-# # build from the release branch
-# RUN ./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
-# RUN pip install --no-cache-dir /tmp/tensorflow_pkg/tensorflow-2.2.0-cp36-cp36m-linux_x86_64.whl
+# build from the release branch
+RUN ./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+RUN pip install --no-cache-dir /tmp/tensorflow_pkg/tensorflow-2.2.0-cp36-cp36m-linux_x86_64.whl
 ```
 
 ##### build the container
