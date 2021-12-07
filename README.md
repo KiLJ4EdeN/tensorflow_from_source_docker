@@ -76,6 +76,10 @@ then
 git clone -b v2.2.0 --recursive https://github.com/tensorflow/tensorflow.git && cd tensorflow && git checkout v2.2.0
 # limit ram
 bazel build -c opt //tensorflow/tools/pip_package:build_pip_package -j 16
+# build wheel from the release
+./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+# install tensorflow
+pip install --no-cache-dir /tmp/tensorflow_pkg/tensorflow-2.2.0-cp36-cp36m-linux_x86_64.whl
 ```
 
 #### or use the image we just created and build another Dockerfile on top
@@ -94,7 +98,17 @@ RUN bazel build -c opt //tensorflow/tools/pip_package:build_pip_package -j 16
 # here if u do have the instructions and just want the speedup from compiling from source use
 # the extra bazel flags for sse avx and fma
 # --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2
+# # build from the release branch
+# RUN ./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+# RUN pip install --no-cache-dir /tmp/tensorflow_pkg/tensorflow-2.2.0-cp36-cp36m-linux_x86_64.whl
 ```
+
+##### build the container
+this container has tf in it.
+```bash
+docker build . -t tf-whl
+```
+
 
 #### output:
 ```buildoutcfg
